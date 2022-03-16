@@ -15,10 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             return getEntries(res);
 
         case 'POST':
-            return postEntries(req, res);
-
-        case 'PUT':
-            return updateEntries(req, res);
+            return postEntry(req, res);
 
         default:
             return res.status(400).json({ message: 'Endpoint no existe' })
@@ -35,7 +32,7 @@ const getEntries = async (res: NextApiResponse<Data>) => {
     res.status(200).json(entries)
 }
 
-const postEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const postEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     const { description = '' } = req.body;
 
@@ -53,27 +50,6 @@ const postEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     } catch (error) {
         await db.disconnect();
         return res.status(500).json({ message: 'Algo salio mal, por favor revisa la consola del servidor' })
-    }
-
-
-}
-
-const updateEntries = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-
-    const { _id, status } = req.body.entry;
-    const newEntry = new Entry({
-        status
-    });
-
-    try {
-        await db.connect();
-        await Entry.findByIdAndUpdate({ _id: _id },
-            { $set: { status: status } });
-        await db.disconnect();
-
-        res.status(201).json(newEntry);
-    } catch (error) {
-        await db.disconnect();
     }
 
 

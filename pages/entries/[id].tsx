@@ -37,7 +37,7 @@ export const EntryPage: FC<Props> = ({ entry }) => {
         setStatus(status as EntryStatus);
     }
 
-    const saveEntry = () => {
+    const saveEntry = async () => {
 
         if (inputValue.trim().length <= 0) return;
 
@@ -47,12 +47,12 @@ export const EntryPage: FC<Props> = ({ entry }) => {
             description: inputValue
         }
 
-        updateEntry(updatedEntry, true);
+        await updateEntry(updatedEntry, true);
         router.push('/');
     }
 
-    const onDeleteEntry = () => {
-        deleteEntry(entry._id);
+    const onDeleteEntry = async () => {
+        await deleteEntry(entry._id);
         router.push('/');
     }
 

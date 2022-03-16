@@ -27,15 +27,11 @@ export const EntriesProvider: FC = ({ children }) => {
     }
 
 
-    const updateEntry = async (entry: Entry, showSnackBar = false) => {
+    const updateEntry = async ({ _id, description, status }: Entry, showSnackBar = false) => {
         try {
-            await entriesApi.put<Entry>(`/entries/${entry._id}`, entry)
-                .then(data => {
-                    dispatch({ type: '[Entries] - Update Status', payload: data.data });
-                    if (data.data.status === entry.status) {
+            const { data } = await entriesApi.put<Entry>(`/entries/${_id}`, { description, status });
+            dispatch({ type: '[Entries] - Update Entry', payload: data });
 
-                    }
-                });
             if (showSnackBar) {
                 enqueueSnackbar('La entrada se actualizo correctamente', {
                     variant: 'success',
@@ -46,30 +42,31 @@ export const EntriesProvider: FC = ({ children }) => {
                     }
                 });
             }
-        } catch (error: any) {
+
+        } catch (error) {
             console.log({ error });
         }
     }
 
+    const deleteEntry = async (id: string) => {
+        const data = await entriesApi.delete<Entry>(`/entries/${id}`);
+        if (data) {
+            dispatch({ type: '[Entries] - Delete Entry', payload: id })
+            enqueueSnackbar('La entrada seleccionada se borro correctamente', {
+                variant: 'success',
+                autoHideDuration: 1500,
+                anchorOrigin: {
+                    horizontal: 'right',
+                    vertical: 'bottom'
+                }
+            });
+        }
+    }
+
+
     const refreshEntries = async () => {
         const { data } = await entriesApi.get<Entry[]>('/entries');
         dispatch({ type: '[Entries] - Refresh Entries', payload: data });
-    }
-
-    const deleteEntry = async (id: string) => {
-        await entriesApi.delete<Entry>(`/entries/${id}`).then(data => {
-            if (data) {
-                dispatch({ type: '[Entries] - Delete Entry', payload: id })
-                enqueueSnackbar('La entrada seleccionada se borro correctamente', {
-                    variant: 'success',
-                    autoHideDuration: 1500,
-                    anchorOrigin: {
-                        horizontal: 'right',
-                        vertical: 'bottom'
-                    }
-                });
-            }
-        });
     }
 
     useEffect(() => {
@@ -79,9 +76,10 @@ export const EntriesProvider: FC = ({ children }) => {
     return (
         <EntriesContext.Provider value={{
             ...state,
+
+            // Methods
             addNewEntry,
             updateEntry,
-            refreshEntries,
             deleteEntry
         }}>
             {children}

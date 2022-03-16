@@ -1,4 +1,4 @@
-import { Card, CardHeader, Grid, Typography } from '@mui/material';
+import { Card, Grid, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import { Layout } from '../components/layouts';
 import { EntryList, NewEntry } from '../components/ui';

@@ -1,9 +1,9 @@
-import { Entry, EntryStatus } from '../../interfaces';
+import { Entry } from '../../interfaces';
 import { EntriesState } from './';
 
 type EntriesActionType =
     | { type: '[Entries] - Add New Entry', payload: Entry }
-    | { type: '[Entries] - Update Status', payload: Entry }
+    | { type: '[Entries] - Update Entry', payload: Entry }
     | { type: '[Entries] - Refresh Entries', payload: Entry[] }
     | { type: '[Entries] - Delete Entry', payload: string }
 
@@ -16,7 +16,7 @@ export const entriesReducer = (state: EntriesState, action: EntriesActionType): 
                 entries: [...state.entries, action.payload]
             }
 
-        case '[Entries] - Update Status':
+        case '[Entries] - Update Entry':
             const { _id, description, status } = action.payload;
             return {
                 ...state,
