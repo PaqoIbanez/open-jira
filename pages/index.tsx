@@ -13,7 +13,7 @@ const HomePage: NextPage = () => {
         <Grid item xs={12} sm={4}>
           <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <Typography sx={{ fontSize: '20px', fontWeight: 300, margin: '10px 10px' }} >
-              Pendientes
+              Pendientess
             </Typography>
             <NewEntry />
             <EntryList status='pending' />
