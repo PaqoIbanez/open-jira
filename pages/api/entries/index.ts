@@ -29,7 +29,7 @@ const getEntries = async (res: NextApiResponse<Data>) => {
     const entries = await Entry.find().sort({ createdAt: 'ascending' });
     await db.disconnect();
 
-    res.status(200).json(entries)
+    return res.status(200).json(entries)
 }
 
 const postEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -46,7 +46,7 @@ const postEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         await newEntry.save();
         await db.disconnect();
 
-        res.status(201).json(newEntry);
+        return res.status(201).json(newEntry);
     } catch (error) {
         await db.disconnect();
         return res.status(500).json({ message: 'Algo salio mal, por favor revisa la consola del servidor' })

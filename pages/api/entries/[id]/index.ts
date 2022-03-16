@@ -30,7 +30,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     }
 }
 
-const deleteEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const deleteEntry = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { id } = req.query;
 
@@ -47,19 +47,19 @@ const deleteEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
 }
 
-const getEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const getEntry = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { id } = req.query;
 
     await db.connect();
-    try {
-        const entry = await Entry.findById(id);
-        await db.disconnect();
-        return res.status(200).json(entry!);
-    } catch (error: any) {
-        await db.disconnect();
-        return res.status(400).json({ message: error.errors.status.message });
+    const entry = await Entry.findById(id);
+    await db.disconnect();
+
+    if (!entry) {
+        return res.status(400).json({ message: 'No hay entrada con ese ID: ' + id })
     }
+
+    return res.status(200).json(entry);
 
 }
 
