@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+
 import { db } from '../../../../database';
 import { Entry, IEntry } from '../../../../models';
 
@@ -8,12 +9,6 @@ type Data =
 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-
-    // const { id } = req.query;
-
-    // if (!mongoose.isValidObjectId(id)) {
-    //     return res.status(500).json({ message: 'El id no es valido: ' + id, })
-    // }
 
     switch (req.method) {
         case 'PUT':
@@ -28,6 +23,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
         default:
             return res.status(400).json({ message: 'No existe el metodo: ' + req.method });
     }
+
 }
 
 const deleteEntry = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -15,15 +15,12 @@ export const EntryCard: FC<Props> = ({ entry }) => {
     const router = useRouter();
 
     const onDragStart = (event: DragEvent<HTMLDivElement>) => {
-        // event.preventDefault();
         event.dataTransfer.setData('text', entry._id);
         setStartDragging();
-        //todo: modificar para hacer el Drag
     }
 
     const onDragEnd = (event: DragEvent<HTMLDivElement>) => {
         event.preventDefault();
-        //todo: Cancelar el Drag
         setEndDragging();
     }
 
@@ -34,7 +31,6 @@ export const EntryCard: FC<Props> = ({ entry }) => {
     return (
         <Card
             sx={{ marginBottom: '10px' }}
-            // Eventos de Drag
             draggable
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}

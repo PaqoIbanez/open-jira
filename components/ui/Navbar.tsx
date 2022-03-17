@@ -1,14 +1,18 @@
-import { Brightness4Outlined, DarkModeOutlined } from '@mui/icons-material';
-import MenuOpenOutlinedIcon from '@mui/icons-material/MenuOpenOutlined'
-import { AppBar, IconButton, Link, Toolbar, Typography } from '@mui/material'
+import { useContext } from 'react';
 import NextLink from 'next/link';
 
-import { useContext } from 'react';
+import { AppBar, IconButton, Link, Toolbar, Typography } from '@mui/material'
+import { Brightness4Outlined, DarkModeOutlined, MenuOpenOutlined } from '@mui/icons-material';
+
 import { UIContext } from '../../context/ui';
 
 export const Navbar = () => {
 
-    const { openSideMenu } = useContext(UIContext);
+    const { theme, openSideMenu, toggleTheme } = useContext(UIContext);
+
+    const onThemeChange = () => {
+        toggleTheme(theme);
+    }
 
     return (
         <AppBar position='sticky' >
@@ -19,11 +23,11 @@ export const Navbar = () => {
                     color='inherit'
                     onClick={openSideMenu}
                 >
-                    <MenuOpenOutlinedIcon />
+                    <MenuOpenOutlined />
                 </IconButton>
                 <NextLink href='/' passHref>
                     <Link underline='none' sx={{ flexGrow: 1 }}>
-                        <Typography  variant='h6'>
+                        <Typography variant='h6'>
                             OpenJira
                         </Typography>
                     </Link>
@@ -32,9 +36,11 @@ export const Navbar = () => {
                     size='large'
                     edge='start'
                     color='inherit'
+
+                    onClick={onThemeChange}
                 >
                     {
-                        true ?
+                        theme === 'dark' ?
                             <DarkModeOutlined />
                             :
                             <Brightness4Outlined />

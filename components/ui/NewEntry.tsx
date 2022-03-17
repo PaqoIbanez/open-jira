@@ -1,7 +1,8 @@
-import { ChangeEvent, FC, useContext } from 'react';
+import { useState, ChangeEvent, useContext } from 'react';
+
 import { Button, Box, TextField } from '@mui/material';
 import { SaveOutlined, AddCircleOutlineOutlined } from "@mui/icons-material";
-import { useState } from 'react';
+
 import { EntriesContext } from '../../context/entries/EntriesContext';
 import { UIContext } from '../../context/ui';
 
@@ -10,8 +11,8 @@ export const NewEntry = () => {
     const { addNewEntry } = useContext(EntriesContext);
     const { isAddingEntry, setIsAddingEntry } = useContext(UIContext);
 
-    const [inputValue, setInputValue] = useState('');
     const [touched, setTouched] = useState(false);
+    const [inputValue, setInputValue] = useState('');
 
 
     const onTextFieldChanges = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

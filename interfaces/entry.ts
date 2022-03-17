@@ -2,7 +2,7 @@ export interface Entry {
     _id: string;
     description: string;
     createdAt: number;
-    status: EntryStatus; // A,B,C,D, pending, in-progress, finished
+    status: EntryStatus;
 }
 
 export type EntryStatus = 'pending' | 'in-progress' | 'finished';

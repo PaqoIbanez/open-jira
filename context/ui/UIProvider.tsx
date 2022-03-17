@@ -1,16 +1,21 @@
 import { FC, useReducer } from 'react';
+
+import Cookies from 'js-cookie';
+
 import { UIContext, uiReducer } from './';
 
 export interface UIState {
     sidemenuOpen: boolean;
     isAddingEntry: boolean;
     isDragging: boolean;
+    theme: string;
 }
 
 const UI_INITIAL_STATE: UIState = {
     sidemenuOpen: false,
     isAddingEntry: false,
     isDragging: false,
+    theme: 'dark'
 }
 
 export const UIProvider: FC = ({ children }) => {
@@ -31,6 +36,12 @@ export const UIProvider: FC = ({ children }) => {
 
     const setEndDragging = () => { dispatch({ type: '[UI] - End Dragging' }) }
 
+    const toggleTheme = (theme: string) => {
+        const toggledTheme = theme === 'dark' ? 'light' : 'dark';
+        Cookies.set('theme', toggledTheme);
+        dispatch({ type: '[UI] - Toggle Theme', payload: toggledTheme })
+    }
+
     return (
         <UIContext.Provider value={{
             ...state,
@@ -40,6 +51,7 @@ export const UIProvider: FC = ({ children }) => {
             setIsAddingEntry,
 
             closeSideMenu,
+            toggleTheme,
 
             setStartDragging,
             setEndDragging,

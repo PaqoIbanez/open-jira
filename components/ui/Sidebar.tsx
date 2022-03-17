@@ -1,12 +1,13 @@
+import { useContext } from 'react'
+
 import { Inbox, Mail } from '@mui/icons-material'
 import { Drawer, Box, List, ListItem, ListItemIcon, ListItemText, Typography, Divider } from '@mui/material';
-import { useContext, useState } from 'react'
+
 import { UIContext } from '../../context/ui';
 
 const menuItems: string[] = ['Inbox', 'Starred', 'Send email', 'Drafts']
 
 export const Sidebar = () => {
-
 
     const { closeSideMenu, sidemenuOpen } = useContext(UIContext);
 

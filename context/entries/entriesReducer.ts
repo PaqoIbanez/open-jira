@@ -28,10 +28,6 @@ export const entriesReducer = (state: EntriesState, action: EntriesActionType): 
                     return entry;
                 })
             }
-        // return {
-        //     ...state,
-        //     entries: state.entries.map(entry => entry._id === id ? { ...entry, status: status } : entry)
-        // }
 
         case '[Entries] - Refresh Entries':
             return {
@@ -42,7 +38,7 @@ export const entriesReducer = (state: EntriesState, action: EntriesActionType): 
         case '[Entries] - Delete Entry':
             return {
                 ...state,
-                entries:  state.entries.filter( entry => entry._id !== action.payload )
+                entries: state.entries.filter(entry => entry._id !== action.payload)
             }
 
         default:

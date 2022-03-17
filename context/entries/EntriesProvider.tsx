@@ -1,8 +1,10 @@
 import { FC, useReducer, useEffect } from 'react';
+
+import { useSnackbar } from 'notistack';
+
+import { entriesApi } from '../../api'
 import { Entry } from '../../interfaces';
 import { EntriesContext, entriesReducer } from './';
-import { entriesApi } from '../../api'
-import { useSnackbar } from 'notistack';
 
 export interface EntriesState {
     entries: Entry[];

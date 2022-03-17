@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+
 import { db, seedData } from '../../database';
 import { Entry } from '../../models';
 

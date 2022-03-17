@@ -1,4 +1,3 @@
-import { TramRounded } from '@mui/icons-material';
 import { UIState } from './';
 
 type UIActionType =
@@ -7,6 +6,7 @@ type UIActionType =
     | { type: '[UI] - Set isAddingEntry', payload: boolean }
     | { type: '[UI] - Start Dragging' }
     | { type: '[UI] - End Dragging' }
+    | { type: '[UI] - Toggle Theme', payload: string }
 
 export const uiReducer = (state: UIState, action: UIActionType): UIState => {
 
@@ -39,6 +39,12 @@ export const uiReducer = (state: UIState, action: UIActionType): UIState => {
             return {
                 ...state,
                 isDragging: false
+            }
+
+        case '[UI] - Toggle Theme':
+            return {
+                ...state,
+                theme: action.payload
             }
 
         default:
