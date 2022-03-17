@@ -37,7 +37,7 @@ export const EntriesProvider: FC = ({ children }) => {
             if (showSnackBar) {
                 enqueueSnackbar('La entrada se actualizo correctamente', {
                     variant: 'success',
-                    autoHideDuration: 1500,
+                    autoHideDuration: 2500,
                     anchorOrigin: {
                         horizontal: 'right',
                         vertical: 'bottom'
@@ -56,7 +56,7 @@ export const EntriesProvider: FC = ({ children }) => {
             dispatch({ type: '[Entries] - Delete Entry', payload: id })
             enqueueSnackbar('La entrada seleccionada se borro correctamente', {
                 variant: 'success',
-                autoHideDuration: 1500,
+                autoHideDuration: 2500,
                 anchorOrigin: {
                     horizontal: 'right',
                     vertical: 'bottom'
